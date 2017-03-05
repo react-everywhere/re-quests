@@ -20,8 +20,7 @@ npm install react-requests
 
 ## Example
 
-```
-
+```jsx
 <Request
     url='https://my-awesome-doma.in/me'
     onSuccess={this.myAwesomeResponseHandler}
