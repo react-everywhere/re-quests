@@ -55,6 +55,6 @@ Any and all the contribution is welcome, providing it aligns with the interest o
 Please make sure the commit messages follow the convention from the [git commit template][template].
 
 
-[Recipes]: https://www.npmjs.com/package/react-requests
-[Philosophy]: https://www.npmjs.com/package/react-requests
+[Recipes]: https://github.com/ankitpopli1891/react-requests/wiki/Recipes
+[Philosophy]: https://github.com/ankitpopli1891/react-requests/wiki/Philosophy
 [template]: https://github.com/ankitpopli1891/react-requests/blob/master/.gitmessage
