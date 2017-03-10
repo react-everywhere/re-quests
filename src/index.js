@@ -76,7 +76,7 @@ class Request extends React.Component {
  * See: https://github.com/mzabriskie/axios#request-config
  * More PropTypes will be added as & when required.
  */
-Request.PropTypes = {
+Request.propTypes = {
     url: React.PropTypes.string.isRequired,
 
     // the http method is not required by axios &
