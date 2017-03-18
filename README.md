@@ -24,21 +24,15 @@ npm install react-requests
 <Request
     url='https://my-awesome-doma.in/me'
     onSuccess={this.myAwesomeResponseHandler}
-    renderOnStart={() => {
-        return (
-            <MyAwesomeSpinner />
-        )
-    }}
-    renderOnSuccess={() => {
-        return (
-            <MyAwesomeContent />
-        )
-    }}
-    renderOnError={() => {
-        return (
-            <MyAwesomeErrorMessage />
-        )
-    }}
+    <Request.Start>
+        <MyAwesomeSpinner />
+    </Request.Start>
+    <Request.Success>
+        <MyAwesomeContent />
+    </Request.Success>
+    <Request.Failure>
+        <MyAwesomeErrorMessage />
+    </Request.Failure>
 />
 ```
 
