@@ -20,7 +20,10 @@ class Request extends React.Component {
 
     // noinspection JSUnusedGlobalSymbols
     getChildContext() {
-        return {...this.state}
+        return {
+            ...this.state,
+            request: this.request
+        }
     }
 
     render() {
@@ -38,7 +41,9 @@ class Request extends React.Component {
      * Setting state in this method will trigger a re-rendering.
      */
     componentDidMount() {
-        this.request();
+        if (!this.props.defer) {
+            this.request();
+        }
     }
 
     onSuccess = () => {
@@ -154,12 +159,15 @@ Request.propTypes = {
     onSuccess: React.PropTypes.func,
     onFailure: React.PropTypes.func,
     onError: React.PropTypes.func,
+
+    defer: React.PropTypes.bool
 };
 
 Request.childContextTypes = {
     status: React.PropTypes.oneOf([INIT, START, SUCCESS, FAILURE, ERROR]),
     response: React.PropTypes.object,
-    error: React.PropTypes.object
+    error: React.PropTypes.object,
+    request: React.PropTypes.func
 };
 
 
@@ -246,9 +254,34 @@ RequestError.contextTypes = {
     error: React.PropTypes.object
 };
 
+/*
+ * TODO:
+ * Ideally whenever the component is rendered,
+ * it should set the parent Request component
+ * defer prop to true
+ */
+class RequestDefer extends React.Component {
+    render() {
+        const {children, action} = this.props;
+
+        const props = {};
+        props[action] = this.context.request;
+        return (
+            (children) ?
+                React.cloneElement(React.Children.only(children), props) :
+                null
+        );
+    }
+}
+
+RequestDefer.contextTypes = {
+    request: React.PropTypes.func
+};
+
 
 Request.Init = RequestInit;
 Request.Start = RequestStart;
 Request.Success = RequestSuccess;
 Request.Failure = RequestFailure;
 Request.Error = RequestError;
+Request.Defer = RequestDefer;
