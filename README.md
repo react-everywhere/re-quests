@@ -24,15 +24,26 @@ npm install react-requests
 <Request
     url='https://my-awesome-doma.in/me'
     onSuccess={this.myAwesomeResponseHandler}
-    <Request.Start>
-        <MyAwesomeSpinner />
-    </Request.Start>
-    <Request.Success>
-        <MyAwesomeContent />
-    </Request.Success>
-    <Request.Failure>
-        <MyAwesomeErrorMessage />
-    </Request.Failure>
+
+    {/*
+    Request element can have only one Child,
+    when using React-DOM it will be <div>,
+    when using React-native it will be <View>,
+    the limitation is because of the issue
+    See: https://github.com/facebook/react/issues/2127
+    */}
+
+    <div>
+        <Request.Start>
+            <MyAwesomeSpinner />
+        </Request.Start>
+        <Request.Success>
+            <MyAwesomeContent />
+        </Request.Success>
+        <Request.Failure>
+            <MyAwesomeErrorMessage />
+        </Request.Failure>
+    </div>
 />
 ```
 
