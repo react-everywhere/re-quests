@@ -23,14 +23,14 @@ class Request extends React.Component {
         return {
             ...this.state,
             request: this.request
-        }
+        };
     }
 
     render() {
-        const {children}= this.props;
+        const {children} = this.props;
         return (
             (children) ? React.Children.only(children) : null
-        )
+        );
     }
 
     /**
@@ -176,12 +176,14 @@ export default Request;
 
 class RequestInit extends React.Component {
     render() {
-        if (this.context.status !== INIT) return null;
+        if (this.context.status !== INIT) {
+            return null;
+        }
 
-        const {children}= this.props;
+        const {children} = this.props;
         return (
             (children) ? React.Children.only(children) : null
-        )
+        );
     }
 }
 
@@ -192,12 +194,14 @@ RequestInit.contextTypes = {
 
 class RequestStart extends React.Component {
     render() {
-        if (this.context.status !== START) return null;
+        if (this.context.status !== START) {
+            return null;
+        }
 
-        const {children}= this.props;
+        const {children} = this.props;
         return (
             (children) ? React.Children.only(children) : null
-        )
+        );
     }
 }
 
@@ -207,12 +211,14 @@ RequestStart.contextTypes = {
 
 class RequestSuccess extends React.Component {
     render() {
-        if (this.context.status !== SUCCESS) return null;
+        if (this.context.status !== SUCCESS) {
+            return null;
+        }
 
-        const {children}= this.props;
+        const {children} = this.props;
         return (
             (children) ? React.Children.only(children) : null
-        )
+        );
     }
 }
 
@@ -224,12 +230,14 @@ RequestSuccess.contextTypes = {
 
 class RequestFailure extends React.Component {
     render() {
-        if (this.context.status !== FAILURE) return null;
+        if (this.context.status !== FAILURE) {
+            return null;
+        }
 
-        const {children}= this.props;
+        const {children} = this.props;
         return (
             (children) ? React.Children.only(children) : null
-        )
+        );
     }
 }
 
@@ -240,12 +248,14 @@ RequestFailure.contextTypes = {
 
 class RequestError extends React.Component {
     render() {
-        if (this.context.status !== ERROR) return null;
+        if (this.context.status !== ERROR) {
+            return null;
+        }
 
-        const {children}= this.props;
+        const {children} = this.props;
         return (
             (children) ? React.Children.only(children) : null
-        )
+        );
     }
 }
 
