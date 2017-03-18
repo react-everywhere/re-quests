@@ -18,16 +18,16 @@ class Request extends React.Component {
         };
     }
 
+    // noinspection JSUnusedGlobalSymbols
+    getChildContext() {
+        return {...this.state}
+    }
+
     render() {
-        const render = [
-            this.props.renderOnStart,
-            this.props.renderOnSuccess,
-            this.props.renderOnFailure,
-            this.props.renderOnError
-        ][[START, SUCCESS, FAILURE, ERROR].indexOf(this.state.status)];
+        const {children}= this.props;
         return (
-            (!render) ? null : render()
-        );
+            (children) ? React.Children.only(children) : null
+        )
     }
 
     /**
@@ -38,6 +38,22 @@ class Request extends React.Component {
      * Setting state in this method will trigger a re-rendering.
      */
     componentDidMount() {
+        this.request();
+    }
+
+    onSuccess = () => {
+        this.props.onSuccess(this.state.response);
+    };
+
+    onFailure = () => {
+        this.props.onFailure(this.state.response);
+    };
+
+    onError = () => {
+        this.props.onError(this.state.error);
+    };
+
+    request = () => {
         const {
             url, method, headers, params,
             data, timeout, auth, responseType,
@@ -73,18 +89,6 @@ class Request extends React.Component {
             );
         });
     }
-
-    onSuccess = () => {
-        this.props.onSuccess(this.state.response);
-    };
-
-    onFailure = () => {
-        this.props.onFailure(this.state.response);
-    };
-
-    onError = () => {
-        this.props.onError(this.state.error);
-    };
 }
 
 /*
@@ -151,11 +155,89 @@ Request.propTypes = {
     onFailure: React.PropTypes.func,
     onError: React.PropTypes.func,
 
+    // todo: deprecation warning
     renderOnStart: React.PropTypes.func,
     renderOnSuccess: React.PropTypes.func,
     renderOnFailure: React.PropTypes.func,
     renderOnError: React.PropTypes.func
 };
 
+Request.childContextTypes = {
+    status: React.PropTypes.oneOf([INIT, START, SUCCESS, FAILURE, ERROR]),
+    response: React.PropTypes.object,
+    error: React.PropTypes.object
+};
+
 
 export default Request;
+
+
+class RequestStart extends React.Component {
+    render() {
+        if (this.context.status !== START) return null;
+
+        const {children}= this.props;
+        return (
+            (children) ? React.Children.only(children) : null
+        )
+    }
+}
+
+RequestStart.contextTypes = {
+    status: React.PropTypes.oneOf([INIT, START, SUCCESS, FAILURE, ERROR])
+};
+
+class RequestSuccess extends React.Component {
+    render() {
+        if (this.context.status !== SUCCESS) return null;
+
+        const {children}= this.props;
+        return (
+            (children) ? React.Children.only(children) : null
+        )
+    }
+}
+
+RequestSuccess.contextTypes = {
+    status: React.PropTypes.oneOf([INIT, START, SUCCESS, FAILURE, ERROR]),
+    response: React.PropTypes.object
+};
+
+
+class RequestFailure extends React.Component {
+    render() {
+        if (this.context.status !== FAILURE) return null;
+
+        const {children}= this.props;
+        return (
+            (children) ? React.Children.only(children) : null
+        )
+    }
+}
+
+RequestFailure.contextTypes = {
+    status: React.PropTypes.oneOf([INIT, START, SUCCESS, FAILURE, ERROR]),
+    error: React.PropTypes.object
+};
+
+class RequestError extends React.Component {
+    render() {
+        if (this.context.status !== ERROR) return null;
+
+        const {children}= this.props;
+        return (
+            (children) ? React.Children.only(children) : null
+        )
+    }
+}
+
+RequestError.contextTypes = {
+    status: React.PropTypes.oneOf([INIT, START, SUCCESS, FAILURE, ERROR]),
+    error: React.PropTypes.object
+};
+
+
+Request.Start = RequestStart;
+Request.Success = RequestSuccess;
+Request.Failure = RequestFailure;
+Request.Error = RequestError;
