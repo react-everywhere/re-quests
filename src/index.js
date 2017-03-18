@@ -154,12 +154,6 @@ Request.propTypes = {
     onSuccess: React.PropTypes.func,
     onFailure: React.PropTypes.func,
     onError: React.PropTypes.func,
-
-    // todo: deprecation warning
-    renderOnStart: React.PropTypes.func,
-    renderOnSuccess: React.PropTypes.func,
-    renderOnFailure: React.PropTypes.func,
-    renderOnError: React.PropTypes.func
 };
 
 Request.childContextTypes = {
