@@ -166,6 +166,22 @@ Request.childContextTypes = {
 export default Request;
 
 
+class RequestInit extends React.Component {
+    render() {
+        if (this.context.status !== INIT) return null;
+
+        const {children}= this.props;
+        return (
+            (children) ? React.Children.only(children) : null
+        )
+    }
+}
+
+RequestInit.contextTypes = {
+    status: React.PropTypes.oneOf([INIT, START, SUCCESS, FAILURE, ERROR])
+};
+
+
 class RequestStart extends React.Component {
     render() {
         if (this.context.status !== START) return null;
@@ -231,6 +247,7 @@ RequestError.contextTypes = {
 };
 
 
+Request.Init = RequestInit;
 Request.Start = RequestStart;
 Request.Success = RequestSuccess;
 Request.Failure = RequestFailure;
