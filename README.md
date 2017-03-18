@@ -21,9 +21,11 @@ npm install react-requests
 ## Example
 
 ```jsx
+import Request from 'react-requests';
+
 <Request
     url='https://my-awesome-doma.in/me'
-    onSuccess={this.myAwesomeResponseHandler}
+    onSuccess={this.myAwesomeResponseHandler}/>
 
     {/*
     Request element can have only one Child,
@@ -44,7 +46,7 @@ npm install react-requests
             <MyAwesomeErrorMessage />
         </Request.Failure>
     </div>
-/>
+</Request>
 ```
 
 
