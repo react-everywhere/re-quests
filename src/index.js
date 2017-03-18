@@ -274,6 +274,10 @@ class RequestDefer extends React.Component {
     }
 }
 
+RequestDefer.propTypes = {
+    action: React.PropTypes.string.isRequired
+};
+
 RequestDefer.contextTypes = {
     request: React.PropTypes.func
 };
