@@ -8,6 +8,20 @@ const [ArrayBuffer, ArrayBufferView, URLSearchParams] = [
     URLSearchParams || Object
 ];
 
+const getConfig = (props) => {
+    const {
+        url, method, headers, params,
+        data, timeout, auth, responseType,
+        xsrfCookieName, xsrfHeaderName
+    } = props;
+
+    return {
+        url, method, headers, params,
+        data, timeout, auth, responseType,
+        xsrfCookieName, xsrfHeaderName
+    };
+};
+
 class Request extends React.Component {
     constructor(props) {
         super(props);
@@ -46,6 +60,34 @@ class Request extends React.Component {
         }
     }
 
+    /**
+     * componentDidUpdate() is invoked immediately after updating occurs.
+     * This method is not called for the initial render.
+     * Use this as an opportunity to operate on the DOM when the component has been updated.
+     * This is also a good place to do network requests as long as you compare
+     * the current props to previous props
+     * (e.g. a network request may not be necessary if the props have not changed).
+     */
+    componentDidUpdate(prevProps) {
+        // we don't need to consider the state change to determine
+        // whether the component should be updated
+        // since the state change is actually not reflected
+        // we wanted to do all this in `shouldComponentUpdate`,
+        // but we do want to update the children when state changes
+        // we'll be checking if any of the props has changed the config for the axios
+        // if the config has been changed only then the request should be fired
+
+        // this should be slow as heck,
+        // will change the implementation asap
+        if (JSON.stringify(getConfig(this.props)) === JSON.stringify(getConfig(prevProps))) {
+            return;
+        }
+
+        if (!this.props.defer) {
+            this.request();
+        }
+    }
+
     onSuccess = () => {
         this.props.onSuccess(this.state.response);
     };
@@ -59,17 +101,7 @@ class Request extends React.Component {
     };
 
     request = () => {
-        const {
-            url, method, headers, params,
-            data, timeout, auth, responseType,
-            xsrfCookieName, xsrfHeaderName
-        } = this.props;
-
-        const config = {
-            url, method, headers, params,
-            data, timeout, auth, responseType,
-            xsrfCookieName, xsrfHeaderName
-        };
+        const config = getConfig(this.props);
 
         // remove the undefined keys
         Object.keys(config).map((k) => config[k] === undefined ? delete config[k] : false);
