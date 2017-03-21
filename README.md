@@ -25,7 +25,7 @@ import Request from 'react-requests';
 
 <Request
     url='https://my-awesome-doma.in/me'
-    onSuccess={this.myAwesomeResponseHandler}/>
+    onSuccess={this.myAwesomeResponseHandler}>
 
     {/*
     Request element can have only one Child,
