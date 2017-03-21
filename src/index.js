@@ -306,8 +306,7 @@ class RequestDefer extends React.Component {
     render() {
         const {children, action} = this.props;
 
-        const props = {};
-        props[action] = this.context.request;
+        const props = {[action]: this.context.request};
         return (
             (children) ?
                 React.cloneElement(React.Children.only(children), props) :
