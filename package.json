@@ -1,19 +1,22 @@
 {
-  "name": "react-requests",
-  "version": "0.3.1",
-  "description": "HTTP requests, the React way.",
-  "homepage": "https://github.com/ankitpopli1891/react-requests#readme",
+  "name": "re-quests",
+  "version": "1.0.0",
+  "description": "Declarative Networking for React.",
+  "homepage": "https://github.com/ankitpopli1891/re-quests#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ankitpopli1891/react-requests.git"
+    "url": "git+https://github.com/ankitpopli1891/re-quests.git"
   },
   "keywords": [
-    "react"
+    "react",
+    "networking",
+    "http",
+    "requests"
   ],
   "author": "Ankit Popli",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ankitpopli1891/react-requests/issues"
+    "url": "https://github.com/ankitpopli1891/re-quests/issues"
   },
   "main": "dist",
   "scripts": {
