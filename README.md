@@ -3,8 +3,8 @@
 Declarative Networking for React.
 
 
-[![npm](https://img.shields.io/npm/v/re-quests.svg)](https://www.npmjs.com/package/react-requests)
-[![npm](https://img.shields.io/npm/dt/re-quests.svg)](https://www.npmjs.com/package/react-requests)
+[![npm](https://img.shields.io/npm/v/re-quests.svg)](https://www.npmjs.com/package/re-quests)
+[![npm](https://img.shields.io/npm/dt/re-quests.svg)](https://www.npmjs.com/package/re-quests)
 
 
 > Checkout the [Philosophy] page, to get an idea why we created this package.
