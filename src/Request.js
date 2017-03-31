@@ -168,6 +168,32 @@ Request.propTypes = {
         React.PropTypes.instanceOf(URLSearchParams)
     ]),
 
+    // `paramsSerializer` is an optional function in charge of serializing `params`
+    // (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)
+    // default: function(params) { return Qs.stringify(params, {arrayFormat: 'brackets'}) }
+    paramsSerializer: React.PropTypes.func,
+
+    // `transformRequest` allows changes to the request data before it is sent to the server
+    // This is only applicable for request methods 'PUT', 'POST', and 'PATCH'
+    // The last function in the array must return a string, an ArrayBuffer, FormData, or a Stream
+    transformRequest: React.PropTypes.arrayOf(React.PropTypes.func),
+
+    // `transformResponse` allows changes to the response data to be made before
+    // it is passed to then/catch
+    transformResponse: React.PropTypes.arrayOf(React.PropTypes.func),
+
+    // `validateStatus` defines whether to resolve or reject the promise for a given
+    // HTTP response status code. If `validateStatus` returns `true` (or is set to `null`
+    // or `undefined`), the promise will be resolved; otherwise, the promise will be
+    // rejected.
+    // default: function (status) { return status >= 200 && status < 300; }
+    validateStatus: React.PropTypes.func,
+
+    // `maxRedirects` defines the maximum number of redirects to follow in node.js.
+    // If set to 0, no redirects will be followed.
+    // default: 5
+    maxRedirects: React.PropTypes.number,
+
     // `timeout` specifies the number of milliseconds before the request times out.
     // If the request takes longer than `timeout`, the request will be aborted.
     timeout: React.PropTypes.number,
