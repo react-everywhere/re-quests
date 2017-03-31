@@ -11,7 +11,8 @@ export const {
     RequestFailure,
     RequestError
 } = Render;
-
+export const RequestDefer = Defer;
+export const RenderIf = Render.RenderIf;
 
 Request.Init = RequestInit;
 Request.Start = RequestStart;
@@ -19,3 +20,4 @@ Request.Success = RequestSuccess;
 Request.Failure = RequestFailure;
 Request.Error = RequestError;
 Request.Defer = Defer;
+Request.RenderIf = Render.RenderIf;
