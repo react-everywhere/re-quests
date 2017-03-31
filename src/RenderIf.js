@@ -5,7 +5,7 @@ import * as STATE from './States';
 
 export class RenderIf extends React.Component {
     render() {
-        if (this.props.stateIn.indexOf(this.context.status)) {
+        if (this.props.stateIn.indexOf(this.context.status) === -1) {
             return null;
         }
 
