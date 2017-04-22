@@ -6,6 +6,10 @@ import * as STATE from './States';
 
 export class RenderIf extends React.Component {
     render() {
+        if (this.props.tag && this.context.tag !== this.props.tag) {
+            return null;
+        }
+
         if (this.props.stateIn.indexOf(this.context.status) === -1) {
             return null;
         }
@@ -24,7 +28,8 @@ export class RenderIf extends React.Component {
 RenderIf.contextTypes = {
     status: PropTypes.oneOf(STATE.ALL),
     response: PropTypes.object,
-    error: PropTypes.object
+    error: PropTypes.object,
+    tag: PropTypes.string
 };
 
 

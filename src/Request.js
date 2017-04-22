@@ -31,7 +31,8 @@ class Request extends React.Component {
         this.state = {
             status: STATE.INIT,
             response: null,
-            error: null
+            error: null,
+            tag: props.tag
         };
     }
 
@@ -234,7 +235,8 @@ Request.propTypes = {
 Request.childContextTypes = {
     status: PropTypes.oneOf(STATE.ALL),
     response: PropTypes.object,
-    error: PropTypes.object
+    error: PropTypes.object,
+    tag: PropTypes.string
 };
 
 
