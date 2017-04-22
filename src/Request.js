@@ -38,8 +38,7 @@ class Request extends React.Component {
     // noinspection JSUnusedGlobalSymbols
     getChildContext() {
         return {
-            ...this.state,
-            request: this.request
+            ...this.state
         };
     }
 
@@ -64,7 +63,7 @@ class Request extends React.Component {
      */
     componentDidMount() {
         if (!this.props.defer) {
-            this.request();
+            this.fire();
         }
     }
 
@@ -92,7 +91,7 @@ class Request extends React.Component {
         }
 
         if (!this.props.defer) {
-            this.request();
+            this.fire();
         }
     }
 
@@ -108,7 +107,7 @@ class Request extends React.Component {
         this.props.onError(this.state.error);
     };
 
-    request = () => {
+    fire = () => {
         const config = getConfig(this.props);
 
         // remove the undefined keys
@@ -235,8 +234,7 @@ Request.propTypes = {
 Request.childContextTypes = {
     status: React.PropTypes.oneOf(STATE.ALL),
     response: React.PropTypes.object,
-    error: React.PropTypes.object,
-    request: React.PropTypes.func
+    error: React.PropTypes.object
 };
 
 
