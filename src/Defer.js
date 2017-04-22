@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import invariant from 'invariant';
 
 /*
@@ -31,9 +32,9 @@ export default class RequestDefer extends React.Component {
 }
 
 RequestDefer.propTypes = {
-    action: React.PropTypes.string.isRequired
+    action: PropTypes.string.isRequired
 };
 
 RequestDefer.contextTypes = {
-    request: React.PropTypes.func
+    request: PropTypes.func
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import invariant from 'invariant';
 
 import * as STATE from './States';
@@ -21,14 +22,14 @@ export class RenderIf extends React.Component {
 }
 
 RenderIf.contextTypes = {
-    status: React.PropTypes.oneOf(STATE.ALL),
-    response: React.PropTypes.object,
-    error: React.PropTypes.object
+    status: PropTypes.oneOf(STATE.ALL),
+    response: PropTypes.object,
+    error: PropTypes.object
 };
 
 
 RenderIf.propTypes = {
-    stateIn: React.PropTypes.array.isRequired
+    stateIn: PropTypes.array.isRequired
 };
 
 // just for backward compatibility until the next version

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import invariant from 'invariant';
 
@@ -140,18 +140,18 @@ class Request extends React.Component {
  * More PropTypes will be added as & when required.
  */
 Request.propTypes = {
-    url: React.PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
 
     // the http method is not required by axios &
     // defaults to 'get' if not provided
-    method: React.PropTypes.oneOf(['get', 'post', 'put', 'patch', 'delete', 'head']),
+    method: PropTypes.oneOf(['get', 'post', 'put', 'patch', 'delete', 'head']),
 
     // `headers` are custom headers to be sent
-    headers: React.PropTypes.object,
+    headers: PropTypes.object,
 
     // `params` are the URL parameters to be sent with the request
     // Must be a plain object or a URLSearchParams object
-    params: React.PropTypes.object,
+    params: PropTypes.object,
 
     // `data` is the data to be sent as the request body
     // Only applicable for request methods 'PUT', 'POST', and 'PATCH'
@@ -159,82 +159,82 @@ Request.propTypes = {
     // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
     // - Browser only: FormData, File, Blob
     // - Node only: Stream
-    data: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.object,
-        React.PropTypes.instanceOf(ArrayBuffer),
-        React.PropTypes.instanceOf(ArrayBufferView),
-        React.PropTypes.instanceOf(URLSearchParams)
+    data: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object,
+        PropTypes.instanceOf(ArrayBuffer),
+        PropTypes.instanceOf(ArrayBufferView),
+        PropTypes.instanceOf(URLSearchParams)
     ]),
 
     // `paramsSerializer` is an optional function in charge of serializing `params`
     // (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)
     // default: function(params) { return Qs.stringify(params, {arrayFormat: 'brackets'}) }
-    paramsSerializer: React.PropTypes.func,
+    paramsSerializer: PropTypes.func,
 
     // `transformRequest` allows changes to the request data before it is sent to the server
     // This is only applicable for request methods 'PUT', 'POST', and 'PATCH'
     // The last function in the array must return a string, an ArrayBuffer, FormData, or a Stream
-    transformRequest: React.PropTypes.arrayOf(React.PropTypes.func),
+    transformRequest: PropTypes.arrayOf(PropTypes.func),
 
     // `transformResponse` allows changes to the response data to be made before
     // it is passed to then/catch
-    transformResponse: React.PropTypes.arrayOf(React.PropTypes.func),
+    transformResponse: PropTypes.arrayOf(PropTypes.func),
 
     // `validateStatus` defines whether to resolve or reject the promise for a given
     // HTTP response status code. If `validateStatus` returns `true` (or is set to `null`
     // or `undefined`), the promise will be resolved; otherwise, the promise will be
     // rejected.
     // default: function (status) { return status >= 200 && status < 300; }
-    validateStatus: React.PropTypes.func,
+    validateStatus: PropTypes.func,
 
     // `maxRedirects` defines the maximum number of redirects to follow in node.js.
     // If set to 0, no redirects will be followed.
     // default: 5
-    maxRedirects: React.PropTypes.number,
+    maxRedirects: PropTypes.number,
 
     // `timeout` specifies the number of milliseconds before the request times out.
     // If the request takes longer than `timeout`, the request will be aborted.
-    timeout: React.PropTypes.number,
+    timeout: PropTypes.number,
 
     // `auth` indicates that HTTP Basic auth should be used, and supplies credentials.
     // This will set an `Authorization` header, overwriting any existing
     // `Authorization` custom headers you have set using `headers`.
     // { username: 'janedoe', password: 's00pers3cret' }
-    auth: React.PropTypes.shape({
-        username: React.PropTypes.string,
-        password: React.PropTypes.string
+    auth: PropTypes.shape({
+        username: PropTypes.string,
+        password: PropTypes.string
     }),
 
     // `responseType` indicates the type of data that the server will respond with
     // options are 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
     // default: json
-    responseType: React.PropTypes.oneOf(['arraybuffer', 'blob', 'document', 'json', 'text', 'stream']),
+    responseType: PropTypes.oneOf(['arraybuffer', 'blob', 'document', 'json', 'text', 'stream']),
 
     // `xsrfCookieName` is the name of the cookie to use as a value for xsrf token
     // default: 'XSRF-TOKEN'
-    xsrfCookieName: React.PropTypes.string,
+    xsrfCookieName: PropTypes.string,
 
     // `xsrfHeaderName` is the name of the http header that carries the xsrf token value
     // default: 'X-XSRF-TOKEN'
-    xsrfHeaderName: React.PropTypes.string,
+    xsrfHeaderName: PropTypes.string,
 
     /*
      * Props that behave either as hooks/callbacks,
      * these are the APIs provided by us.
      */
-    onStart: React.PropTypes.func,
-    onSuccess: React.PropTypes.func,
-    onFailure: React.PropTypes.func,
-    onError: React.PropTypes.func,
+    onStart: PropTypes.func,
+    onSuccess: PropTypes.func,
+    onFailure: PropTypes.func,
+    onError: PropTypes.func,
 
-    defer: React.PropTypes.bool
+    defer: PropTypes.bool
 };
 
 Request.childContextTypes = {
-    status: React.PropTypes.oneOf(STATE.ALL),
-    response: React.PropTypes.object,
-    error: React.PropTypes.object
+    status: PropTypes.oneOf(STATE.ALL),
+    response: PropTypes.object,
+    error: PropTypes.object
 };
 
 
