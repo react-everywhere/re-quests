@@ -1,7 +1,6 @@
 import Request from './Request';
 import * as Render from './RenderIf';
-import Defer from './Defer';
-
+import * as States from './States';
 
 export default Request;
 export const {
@@ -11,13 +10,12 @@ export const {
     RequestFailure,
     RequestError
 } = Render;
-export const RequestDefer = Defer;
 export const RenderIf = Render.RenderIf;
+export const STATE = States;
 
 Request.Init = RequestInit;
 Request.Start = RequestStart;
 Request.Success = RequestSuccess;
 Request.Failure = RequestFailure;
 Request.Error = RequestError;
-Request.Defer = Defer;
 Request.RenderIf = Render.RenderIf;
