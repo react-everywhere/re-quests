@@ -142,6 +142,7 @@ class Request extends React.Component {
  * More PropTypes will be added as & when required.
  */
 Request.propTypes = {
+    // `url` is the server URL that will be used for the request
     url: PropTypes.string.isRequired,
 
     // the http method is not required by axios &
@@ -221,16 +222,34 @@ Request.propTypes = {
     // default: 'X-XSRF-TOKEN'
     xsrfHeaderName: PropTypes.string,
 
-    /*
-     * Props that behave either as hooks/callbacks,
-     * these are the APIs provided by us.
-     */
+
+    // callback fired just before the request is fired
     onStart: PropTypes.func,
+
+    // callback fired after the response
+    // comes back with status 2XX
     onSuccess: PropTypes.func,
+
+    // callback fired after the response
+    // comes back with status other 2XX
     onFailure: PropTypes.func,
+
+    // callback fired when
+    // something else goes wrong
     onError: PropTypes.func,
 
-    defer: PropTypes.bool
+    // defer signals the Request component to not fire the
+    // request as soon as ready instead construct the request and
+    // wait for the manual trigger
+    // useful for cases when either the data is incomplete
+    // or we want to wait for a CTA
+    defer: PropTypes.bool,
+
+    // request can be tagged for enabling nested scenarios
+    // we might want to render a component based on
+    // request sent way above the hierarchy of the component
+    // super grand parent component :P
+    tag: PropTypes.string
 };
 
 Request.childContextTypes = {
