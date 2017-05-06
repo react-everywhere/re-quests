@@ -46,7 +46,7 @@
     "nodemon": "1.7.x"
   },
   "dependencies": {
-    "axios": "^0.15.3",
+    "axios": "^0.16.1",
     "babel-runtime": "6.x.x",
     "invariant": "^2.2.2",
     "react": "^15.5.0",
