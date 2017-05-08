@@ -129,10 +129,14 @@ class Request extends React.Component {
                     );
             }
         }).catch((err) => {
-            invariant(err);
             this.setState({status: STATE.ERROR, error: err},
                 (this.props.onError) ? this.onError : undefined
             );
+
+            // throwing the error prior to setting state,
+            // prevents error block from getting displayed
+            // also, always false, we want to propagate the root causes
+            invariant(false, err.stack);
         });
     }
 }
