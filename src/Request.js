@@ -15,13 +15,13 @@ const getConfig = (props) => {
     const {
         url, method, headers, params,
         data, timeout, auth, responseType,
-        xsrfCookieName, xsrfHeaderName
+        xsrfCookieName, xsrfHeaderName, tag
     } = props;
 
     return {
         url, method, headers, params,
         data, timeout, auth, responseType,
-        xsrfCookieName, xsrfHeaderName
+        xsrfCookieName, xsrfHeaderName, tag
     };
 };
 
