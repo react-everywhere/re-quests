@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
 import invariant from 'invariant';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import * as STATE from './States';
 
@@ -26,8 +26,8 @@ const getConfig = (props) => {
 };
 
 class Request extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
         this.state = {
             status: STATE.INIT,
             response: null,
@@ -109,12 +109,23 @@ class Request extends React.Component {
     };
 
     fire = () => {
+        const cachedResponse = this.getCachedResponse();
+        if (cachedResponse !== undefined) {
+            // FIXME
+            this.setState({status: STATE.SUCCESS, response: cachedResponse},
+                (this.props.onSuccess) ? this.onSuccess : undefined
+            );
+            return;
+        }
+
         const config = getConfig(this.props);
 
         // remove the undefined keys
         Object.keys(config).map((k) => config[k] === undefined ? delete config[k] : false);
 
         this.setState({status: STATE.START}, this.props.onStart);
+
+        axios.interceptors.response.use(this.cacheResponseInterceptor);
         axios.request(config).then((response) => {
             const code = Math.round(response.status / 100);
             switch (code) {
@@ -138,7 +149,53 @@ class Request extends React.Component {
             // also, always false, we want to propagate the root causes
             invariant(false, err.stack);
         });
-    }
+    };
+
+    cacheResponseInterceptor = (response) => {
+        // cache has not been configured
+        const {cache, tag} = this.props;
+        if (cache === undefined) {
+            return response;
+        }
+
+        // https://developer.mozilla.org/en-US/docs/Glossary/cacheable
+        // rely on Cache-Control! :thinking:
+        const cacheableMethods = ['head', 'get', 'post'];
+        if (cacheableMethods.indexOf(response.config.method.toLowerCase()) === -1) {
+            return;
+        }
+
+        invariant(
+            cache !== undefined && this.context.store !== undefined,
+            'caching is only available when store is configured'
+        );
+        invariant(
+            cache !== undefined && tag !== undefined,
+            'tag property is required for caching'
+        );
+
+        const {data, status} = response;
+        this.context.store.dispatch({
+            type: 'CACHE_REQUEST',
+            payload: {
+                tag,
+                response: {data, status},
+                timeout: cache
+            }
+        });
+
+        return response;
+    };
+
+    getCachedResponse = () => {
+        const {tag} = this.props;
+        const {store} = this.context;
+        if (!store) return;
+
+        const state = store.getState();
+        const {response} = state.requests[tag] || {};
+        return response;
+    };
 }
 
 /*
@@ -254,6 +311,10 @@ Request.propTypes = {
     // request sent way above the hierarchy of the component
     // super grand parent component :P
     tag: PropTypes.string
+};
+
+Request.contextTypes = {
+    store: PropTypes.object
 };
 
 Request.childContextTypes = {
