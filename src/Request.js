@@ -34,6 +34,8 @@ class Request extends React.Component {
             error: null,
             tag: props.tag
         };
+        this.axios = axios.create();
+        this.axios.interceptors.response.use(this.cacheResponseInterceptor);
     }
 
     // noinspection JSUnusedGlobalSymbols
@@ -124,9 +126,7 @@ class Request extends React.Component {
         Object.keys(config).map((k) => config[k] === undefined ? delete config[k] : false);
 
         this.setState({status: STATE.START}, this.props.onStart);
-
-        axios.interceptors.response.use(this.cacheResponseInterceptor);
-        axios.request(config).then((response) => {
+        this.axios.request(config).then((response) => {
             const code = Math.round(response.status / 100);
             switch (code) {
                 case 2:
